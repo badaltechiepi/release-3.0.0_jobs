@@ -1,0 +1,83 @@
+######################## LP ########################
+[learning1]
+14.2.1.7
+[swarm-bootstrap-manager]
+20.0.0.20
+[learningall:children]
+learning1
+[search1]
+14.2.1.7
+[searchall:children]
+search1
+[redis1]
+14.2.1.7
+[redisall:children]
+redis1
+[learning-neo4j-node1]
+14.2.1.6
+# Enable following host, if you're have neo4j cluster and an arbiter for election
+# [arbiter]
+# <ip> dbms_mode=ARBITER
+[learning-neo4j-cluster:children]
+learning-neo4j-node1
+[cassandra-node-1]   # The old cassandra group has been renamed to cassandra-node-* to accomadate for clusters
+14.2.1.6
+[cassandra:children]
+cassandra-node-1
+[dp-cassandra]
+14.2.1.6
+[core-cassandra]
+14.2.1.6
+[core-es-1]
+14.2.1.6
+[core-es:children]
+core-es-1
+[composite-search-cluster]
+14.2.1.6
+[yarn-master]
+14.2.1.8
+[yarn-slave]
+14.2.1.8
+14.2.1.9
+[yarn:children]
+yarn-master
+yarn-slave
+[processing-cluster-kafka]
+14.2.1.7
+[processing-cluster-zookeepers]
+14.2.1.7
+[zookeeper:children]
+processing-cluster-zookeepers
+[local]
+localhost ansible_connection=local
+[lp:children]
+learningall
+searchall
+learning-neo4j-cluster
+cassandra
+redisall
+yarn
+composite-search-cluster
+processing-cluster-kafka
+zookeeper
+local
+[env:children]
+lp
+swarm-bootstrap-manager
+[env:vars]
+ansible_ssh_user=ops
+ansible_ssh_private_key_file=/var/lib/jenkins/secrets/deployer_ssh_key
+####################### Monitoring ########################
+[logstash-ps]
+15.0.3.11
+[process-exporter:children]
+logstash-ps
+cassandra-ps
+[cassandra-ps]
+15.0.2.7
+[process-exporter:vars]
+ansible_ssh_user=ops
+ansible_ssh_private_key_file=/var/lib/jenkins/secrets/deployer_ssh_key
+[all:vars]
+ansible_ssh_user=ops
+ansible_ssh_private_key_file=/var/lib/jenkins/secrets/deployer_ssh_key

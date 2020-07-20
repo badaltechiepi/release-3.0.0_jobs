@@ -1,0 +1,45 @@
+###### Release 1.14.0 and 2.0.0 #######
+
+env: #Name of the environment,e.g. dev,staging or production.
+proto: # Protocol for the domain e.g https
+domain_name: #Domain on which the portal will be accessed. e.g. staging.{implementation-name}.org
+ssh_public_key_deployer:  # SSH Public key for deployer user, with which ansible will execute tasks e.g. /var/lib/jenksin/deployer_ssh_key.pub
+bootstrap_user:  # The username which used to access the VM e.g. ubuntu or ops
+bootstrap_key_path: # The full path of the key which is used to access the VM, which stored in jenkins secrets folder e.g. /var/lib/jenkins/secrets/ops_ssh_key
+
+secor_azure_container_name: "" # Azure blob container name e.g. dev-datastore
+secor_alerts_slack_channel: "" 
+
+#dp_azure_account_name:  # azure storage account name
+default_org_hash_id: "" # channel id of the organization
+
+# Data products monitoring web hooks
+data_exhaust_webhook_url: ""   ## Slack webhook
+data_exhaust_Channel: ""      ## salck channel for data products alerts
+data_exhaust_name:   
+stream_base_url: ""
+
+# Media content
+media_service_azure_tenant: "" # value have to be defined
+media_service_azure_tenant: ""
+media_service_azure_subscription_id: ""
+media_service_azure_account_name: ""
+media_service_azure_resource_group_name: ""
+media_service_azure_token_client_key: ""
+media_service_azure_token_client_secret: ""
+
+# kafka topic required by core #
+# Please do not change this #
+ingestion_kafka_topics:
+  - name: telemetry.ingestion
+    num_of_partitions: 4
+    replication_factor: 1
+    retention_time: 604800000
+  - name: telemetry.ingest
+    num_of_partitions: 4
+    replication_factor: 1
+# Geo location related var
+maxmind_db_license_key:
+swarm_manager_lb_ip:    # Update the swarm lb ip if you dont have lb then update the swarm server ip
+#report_azure_account_name:  # Update the azure account name
+#report_azure_storage_secret: "{{ dp_vault_reports_azure_key }}"

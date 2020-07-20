@@ -1,0 +1,32 @@
+###### Release 1.14.0, 2.0.0 ########
+
+env:   #Name of the environment i.e which you have provided in core, common.yml file. 
+proto: # Protocol,i.e which you have provided in core, common.yml file. 
+domain_name: #Domain on which the portal will be accessed, i.e which you have provided in core, common.yml file. 
+ekstep_domain_name: #ekstep domain name e.g. https://qa.ekstep.in/
+#bootstrap
+ssh_public_key_deployer:  # SSH Public key for deployer user, with which ansible will execute tasks e.g. /var/lib/jenksin/deployer_ssh_key.pub
+bootstrap_user:           #The username which used to access the VM e.g. ubuntu,ops
+bootstrap_key_path:       ## The full path of the key which is used to access the VM, which stored in jenkins secrets folder e.g. /var/lib/jenkins/secrets/ops_ssh_key
+
+azure_public_container:  # Conatainer store assets/public e.g. content
+environment_id:    # Should be a number of 8 digit like 1000000. This should be unique per environment
+neo4j_zip: neo4j-enterprise-3.3.9-unix.tar.gz       # neo4j enterprise version.zip present in the artifacts folder
+neo4j_home: "{{learner_user_home}}/{{neo4j_dir}}/neo4j-enterprise-3.3.9"   # Change this path to the version of neo4j you will be using
+neo4j_enterprise: "true"
+
+###########  Storage Account variables ############
+artifacts_container:  #Azure blob container name to save built artifacts e.g artifacts
+
+# public storage account with content conatiner.e.g release300
+sunbird_public_storage_account_name: 
+
+# used to store backups for or application DB's, e.g. release300
+sunbird_management_storage_account_name: 
+
+# This account need to be private to store jenkins build artifacts which will be used commonly between environments.e.g. release3000
+sunbird_artifact_storage_account_name: 
+
+##########################################################
+
+swarm_manager_lb_ip:       # Enter the LB IP in case you are using a swarm manager load balancer OR Swarm manager's IP if not using a load balancer e.g.16.3.0.4
