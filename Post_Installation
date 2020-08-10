@@ -1,0 +1,72 @@
+---
+name: steps to be completed post installation
+Creation:
+ - Start creating the user with the v2/user/creation
+ - Login and check the custodian org
+    - As you have already given the channel name as sunbird
+        - so you have to create an org with name with sunbird and make that as an custodian org
+        - Post the above step you can do rest of the things or else it will conflicts. 
+ - Start creating the org
+ - Start creating the user 
+     - name: "provide the role"
+ - Start login to the portal and check the channel
+ - Start creating the FW masterdata
+   - Run the curl command in KP server
+      - Create Board
+      - Create Medium
+      - Create Gread
+      - Create subject
+      - Create Topic
+ - Start creating the form
+     - Create form for creation
+     - Create form for edit
+     - Create form for review
+     - Create form for publish
+     - create form for request change
+ - Start creating the content/collection/Book
+     - Create the content
+     - Publish the content
+ - Start creating the FW for TPD
+ - Start creating the form for TPD
+     - Create form for creation
+     - Create form for edit
+     - Create form for review
+     - Create form for publish
+     - create form for request change
+  - Start creating the course
+     - Create the course 
+     - Review the course
+     - Publish the course
+
+
+
+How to check the FW issue:
+
+- check the FW keyspaces are created or not. Deploy the cassandra_trigger job to fix that. 
+- Post cassandra_Trigger job try to publish the FW and get the FW once again
+- As the terms are getting created in cassandra and also when we read the values it will comes from the cassandra only
+- The catagores are created in neo4j and neo4j only return one label of information. 
+- To check whether the configuration of learning service  are correct or not we have to check /data/properties/application.conf file
+- To check the values in cassandra use the below query. 
+   - To login to cassandra: cqlsh
+   - select * from dev_hierarchy_store.framework_hierarchy WHERE identifier='pub';
+- To check the values in neo4j we have to use 
+   - To login to the neo4j we have to login with neo4j-cli  
+   - match (n:domain)-[]-(m) where n.IL_UNIQUE_ID="dev_board" return n.IL_UNIQUE_ID,m.IL_UNIQUE_ID;
+
+- To check the cache in redis we have to follow the below command. 
+   - To login to redis, we have to login with redis-cli
+   - check the keys *<fw>*
+- To check the something in postgress we have to go with the below flow. 
+   -  psql and try \l to get the list. 
+
+Publish Pipeline issue:   
+
+
+Cassandra: select * from dev_hierarchy_store.framework_hierarchy WHERE identifier='pub';
+ Neo4J: match (n:domain)-[]-(m) where n.IL_UNIQUE_ID="dev_board" return n.IL_UNIQUE_ID,m.IL_UNIQUE_ID;
+
+
+- To check elasticSearch is running or not do the below step. 
+curl http://localhost:9200/_cat/indices?v
+- All the issues are related to the ORG creation. The first org channel name should be sunbird if you have provide sunbird in the common.yml file
